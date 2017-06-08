@@ -1,0 +1,78 @@
+parameters:
+    assets.base_path: ''
+
+services:
+    uneak.assets:
+        class: 'Uneak\AssetsBundle\Assets\Assets'
+        arguments:
+            - '@event_dispatcher'
+            - '@uneak.assets.loader'
+            - '@uneak.assets.bulk_process.manager'
+            - '%uneak.assets.prefix_config%'
+            - '%uneak.assets.packages_config%'
+            - '%kernel.cache_dir%'
+            - '%kernel.debug%'
+
+    uneak.assets.bundles.finder:
+        class: 'Uneak\AssetsBundle\Finder\BundleFinderExtension'
+        arguments:
+            - "@kernel"
+
+    uneak.assets.extra.finder:
+        class: 'Uneak\AssetsBundle\Finder\FinderExtension'
+        arguments:
+            - "%uneak.assets.finder.alias%"
+
+    uneak.assets.finder:
+        class: 'Uneak\AssetsBundle\Finder\Finder'
+        arguments:
+            -
+                - ["@uneak.assets.extra.finder", 100]
+                - ["@=service('uneak.assets.npm').getFinder()", 80]
+                - ["@=service('uneak.assets').getFinder()", 70]
+                - ["@uneak.assets.bundles.finder", 60]
+
+    uneak.assets.pool_factory:
+        class: 'Uneak\AssetsBundle\Pool\PoolFactory'
+        arguments:
+            - '@uneak.assets'
+            - '@uneak.assets.asset_type.manager'
+            - '@event_dispatcher'
+
+    uneak.assets.package:
+        class: 'Uneak\AssetsBundle\AssetPackage\AssetPackage'
+        arguments:
+            - '@uneak.assets'
+            - '%assets.base_path%'
+            - '@assets.context'
+
+    uneak.assets.naming_strategy:
+        class: 'Uneak\AssetsBundle\Naming\AssetNamingStrategy'
+
+    uneak.assets.include:
+        class: 'Uneak\AssetsBundle\Pool\AssetInclude'
+
+    uneak.assets.bulk_process.manager:
+        class: 'Uneak\AssetsBundle\Assets\BulkProcessManager'
+
+    uneak.assets.library_type.manager:
+        class: 'Uneak\AssetsBundle\LibraryType\LibraryTypeManager'
+
+    uneak.assets.asset_type.manager:
+        class: 'Uneak\AssetsBundle\AssetType\AssetTypeManager'
+
+
+    uneak.assets.cache_warmer:
+        class: 'Uneak\AssetsBundle\CacheWarmer\AssetsCacheWarmer'
+        arguments:
+            - '@uneak.assets'
+        tags:
+            - { name: kernel.cache_warmer }
+
+    uneak.assets.twig.extension:
+        class: 'Uneak\AssetsBundle\Twig\Extension\AssetsExtension'
+        arguments:
+            - '@uneak.assets.pool_factory'
+            - '@uneak.assets.include'
+        tags:
+            - { name: twig.extension }

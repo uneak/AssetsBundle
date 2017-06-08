@@ -1,0 +1,18 @@
+
+services:
+
+    uneak.assets.bower.process:
+        class: 'Uneak\AssetsBundle\Process\Bower\BowerProcess'
+        arguments:
+            - "@event_dispatcher"
+            - '%uneak.assets.bower_config%'
+
+    uneak.assets.dump_bower.listener:
+        class: 'Uneak\AssetsBundle\EventListener\DumpBowerListener'
+        arguments:
+            - '@filesystem'
+            - '@uneak.assets.bower.process'
+        tags:
+            - { name: kernel.event_listener, event: bower.pre_install, method: dumpBower }
+            - { name: kernel.event_listener, event: bower.pre_update, method: dumpBower }
+            - { name: kernel.event_listener, event: bower.post_list, method: dumpMapping }

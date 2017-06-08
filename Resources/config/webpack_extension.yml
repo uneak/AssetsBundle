@@ -1,0 +1,37 @@
+services:
+
+    uneak.webpack.extension.common:
+        public: false
+        class: Uneak\AssetsBundle\Webpack\Extension\CommonExtension
+
+    uneak.webpack.extension.babel_loader:
+        public: false
+        class: Uneak\AssetsBundle\Webpack\Extension\Loader\BabelLoader
+
+    uneak.webpack.extension.css_loader:
+        public: false
+        class: Uneak\AssetsBundle\Webpack\Extension\Loader\CssLoader
+
+    uneak.webpack.extension.file_loader:
+        public: false
+        class: Uneak\AssetsBundle\Webpack\Extension\Loader\FileLoader
+
+    uneak.webpack.extension.markdown_loader:
+        public: false
+        class: Uneak\AssetsBundle\Webpack\Extension\Loader\MarkdownLoader
+
+    uneak.webpack.extension.raw_loader:
+        public: false
+        class: Uneak\AssetsBundle\Webpack\Extension\Loader\RawLoader
+
+    uneak.webpack.extension.url_loader:
+        public: false
+        class: Uneak\AssetsBundle\Webpack\Extension\Loader\UrlLoader
+
+    uneak.webpack.extension.npm_resolver:
+        public: false
+        class: Uneak\AssetsBundle\Webpack\Extension\Resolver\NpmFinderResolver
+
+    uneak.webpack.extension.webpack:
+        public: false
+        class: Uneak\AssetsBundle\Webpack\Extension\WebpackExtension

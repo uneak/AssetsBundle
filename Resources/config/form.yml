@@ -1,0 +1,13 @@
+parameters:
+    uneak.assets.asset_type_extension.class: Uneak\AssetsBundle\Form\Extension\AssetTypeExtension
+
+services:
+
+    uneak.assets.asset_type_extension:
+        class: "%uneak.assets.asset_type_extension.class%"
+        arguments:
+            - "@uneak.assets.include"
+            - "@uneak.assets"
+            - "@twig.form.engine"
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }

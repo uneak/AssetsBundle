@@ -1,0 +1,7 @@
+{% if context.content is defined %}
+<{{ context.tag }} {{ context | attr('type', 'charset', 'async', 'defer') }}>
+	{{ context.content | raw }}
+</{{ context.tag }}>
+{% elseif context.template is defined %}
+	{{ include(context.template, context.template_data, false) }}
+{% endif %}

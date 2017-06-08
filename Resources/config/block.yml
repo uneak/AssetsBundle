@@ -1,0 +1,59 @@
+parameters:
+    uneak.assets.block.resolved_type_factory.class: Uneak\AssetsBundle\Block\ResolvedBlockTypeFactory
+    uneak.assets.block.registry.class: Uneak\AssetsBundle\Block\BlockRegistry
+    uneak.assets.block.factory.class: Uneak\AssetsBundle\Block\BlockFactory
+    uneak.assets.block.extension.class: Uneak\AssetsBundle\Block\Extension\DependencyInjection\DependencyInjectionExtension
+    uneak.assets.twig.extension.block.class: Uneak\AssetsBundle\Twig\Extension\BlockExtension
+    uneak.assets.twig.block.engine.class: Uneak\AssetsBundle\Twig\Block\TwigRendererEngine
+    uneak.assets.twig.block.renderer.class: Uneak\AssetsBundle\Twig\Block\TwigRenderer
+services:
+
+    uneak.assets.block.extension:
+        class: "%uneak.assets.block.extension.class%"
+        public: false
+        arguments:
+            - "@service_container"
+            - []
+            - []
+
+    uneak.assets.block.resolved_type_factory:
+        class: "%uneak.assets.block.resolved_type_factory.class%"
+
+
+    uneak.assets.block.registry:
+        class: "%uneak.assets.block.registry.class%"
+        arguments:
+            - ["@uneak.assets.block.extension"]
+            - "@uneak.assets.block.resolved_type_factory"
+
+
+    uneak.assets.block.factory:
+        class: "%uneak.assets.block.factory.class%"
+        arguments:
+            - "@uneak.assets.block.registry"
+            - "@uneak.assets.block.resolved_type_factory"
+            - "@uneak.assets.include"
+            - "@uneak.assets"
+            - "@uneak.assets.twig.block.engine"
+
+
+
+    uneak.assets.twig.block.engine:
+        class: "%uneak.assets.twig.block.engine.class%"
+        public: false
+        arguments:
+            - "%twig.block.resources%"
+
+    uneak.assets.twig.block.renderer:
+        class: "%uneak.assets.twig.block.renderer.class%"
+        public: false
+        arguments:
+            - "@uneak.assets.twig.block.engine"
+
+    uneak.assets.twig.extension.block:
+        class: "%uneak.assets.twig.extension.block.class%"
+        public: false
+        arguments:
+            - "@uneak.assets.twig.block.renderer"
+        tags:
+            - { name: twig.extension }

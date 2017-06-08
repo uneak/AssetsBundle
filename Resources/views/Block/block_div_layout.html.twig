@@ -1,0 +1,92 @@
+{# Widgets #}
+
+{%- block block_widget -%}
+    {% if block | length %}
+        {{- block('block_widget_compound') -}}
+    {% else %}
+        {{- block('block_widget_simple') -}}
+    {% endif %}
+{%- endblock block_widget -%}
+
+{%- block block_widget_compound -%}
+    {#<div {{ block('widget_container_attributes') }}>#}
+        {{- block('block_rows') -}}
+        {{- block_rest(block) -}}
+    {#</div>#}
+{%- endblock block_widget_compound -%}
+
+{%- block block_widget_simple -%}
+    {#<div {{ block('widget_attributes') }}>#}
+        {% if value is not empty %}{{ value }}{% endif %}
+    {#</div>#}
+{%- endblock block_widget_simple -%}
+
+{# Misc #}
+
+{%- block block -%}
+    {{- block_widget(block) -}}
+{%- endblock block -%}
+
+{%- block block_rest -%}
+    {% for child in block -%}
+        {% if not child.rendered %}
+            {{- block_row(child) -}}
+        {% endif %}
+    {%- endfor %}
+{% endblock block_rest %}
+
+
+{%- block block_row -%}
+    {#<div>#}
+        {{- block_widget(block) -}}
+    {#</div>#}
+{%- endblock block_row -%}
+
+{# Support #}
+
+{%- block block_rows -%}
+    {% for child in block %}
+        {{- block_row(child) -}}
+    {% endfor %}
+{%- endblock block_rows -%}
+
+{%- block widget_attributes -%}
+    id="{{ id }}"
+    {%- for attrname, attrvalue in attr -%}
+        {{- " " -}}
+        {%- if attrname in ['placeholder', 'title', 'alt', 'label'] -%}
+            {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain) }}"
+        {%- elseif attrvalue is same as(true) -%}
+            {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not same as(false) -%}
+            {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock widget_attributes -%}
+
+{%- block widget_container_attributes -%}
+    {%- if id is not empty %}id="{{ id }}-wrapper"{% endif -%}
+    {%- for attrname, attrvalue in attr -%}
+        {{- " " -}}
+        {%- if attrname in ['placeholder', 'title', 'alt', 'label'] -%}
+            {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain) }}"
+        {%- elseif attrvalue is same as(true) -%}
+            {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not same as(false) -%}
+            {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock widget_container_attributes -%}
+
+{% block attributes -%}
+    {%- for attrname, attrvalue in attr -%}
+        {{- " " -}}
+        {%- if attrname in ['placeholder', 'title', 'alt', 'label'] -%}
+            {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain) }}"
+        {%- elseif attrvalue is same as(true) -%}
+            {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not same as(false) -%}
+            {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock attributes -%}

@@ -28,5 +28,6 @@
     "autoload": {
         "psr-0": { "Uneak\\AssetsBundle": "" }
     },
-    "target-dir": "Uneak/AssetsBundle"
+    "target-dir": "Uneak/AssetsBundle",
+    "minimum-stability": "dev"
 }

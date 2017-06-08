@@ -1,0 +1,16 @@
+services:
+
+    uneak.assets.bower.definition:
+        public: false
+        class: 'Uneak\AssetsBundle\LibraryType\Bower\BowerLibraryType'
+        tags: [{ name: uneak.assets.library_type }]
+
+    uneak.assets.install.definition:
+        public: false
+        class: 'Uneak\AssetsBundle\LibraryType\Install\InstallLibraryType'
+        tags: [{ name: uneak.assets.library_type }]
+
+    uneak.assets.default.definition:
+        public: false
+        class: 'Uneak\AssetsBundle\LibraryType\DefaultLibraryType'
+        tags: [{ name: uneak.assets.library_type }]

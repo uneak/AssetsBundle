@@ -1,0 +1,2 @@
+# AssetsBundle
+Symfony assets bundle

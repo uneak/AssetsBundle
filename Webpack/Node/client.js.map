@@ -1,0 +1,1 @@
+{"version":3,"file":"client.js","sources":["webpack:///../../ReactBundle/Resources/views/entry.js"],"sourcesContent":["import App from '@AppBundle/view/app'\n\nconsole.info(App);\nconsole.log(App);\n\n\n// WEBPACK FOOTER //\n// ../../ReactBundle/Resources/views/entry.js"],"mappings":";;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AACA;AACA;AACA;;;;A","sourceRoot":""}

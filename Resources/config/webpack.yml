@@ -1,0 +1,7 @@
+services:
+    uneak.webpack.manager:
+        class: Uneak\AssetsBundle\Webpack\Configuration\WebpackManager
+        arguments:
+            - "@uneak.assets.finder"
+            - "%kernel.cache_dir%"
+            - "%kernel.debug%"

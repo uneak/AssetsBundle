@@ -1,0 +1,25 @@
+services:
+
+    uneak.assets.npm.process:
+        class: 'Uneak\AssetsBundle\Process\Npm\NpmProcess'
+        arguments:
+            - "@event_dispatcher"
+            - '%uneak.assets.npm_config%'
+
+
+    uneak.assets.npm:
+        class: 'Uneak\AssetsBundle\Npm\Npm'
+        arguments:
+            - "@kernel"
+            - "@filesystem"
+            - "@event_dispatcher"
+            - "%kernel.cache_dir%"
+            - "%kernel.debug%"
+
+
+    uneak.assets.npm.cache_warmer:
+        class: 'Uneak\AssetsBundle\CacheWarmer\NpmCacheWarmer'
+        arguments:
+            - "@uneak.assets.npm"
+        tags:
+            - { name: kernel.cache_warmer }

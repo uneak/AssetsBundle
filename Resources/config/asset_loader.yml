@@ -1,0 +1,19 @@
+services:
+    uneak.assets.resolver:
+        class: 'Uneak\AssetsBundle\Loader\LoaderResolver'
+        public: false
+
+    uneak.assets.loader:
+        class: 'Uneak\AssetsBundle\Loader\DelegatingLoader'
+        arguments:
+            - "@uneak.assets.resolver"
+
+    uneak.assets.bulk.resolver.yml:
+        class: 'Uneak\AssetsBundle\Loader\Bulk\YamlFileLoader'
+        public: false
+        arguments:
+            - "@file_locator"
+            - "@uneak.assets.library_type.manager"
+            - "@uneak.assets.asset_type.manager"
+        tags:
+            - { name: "uneak.assets.loader" }

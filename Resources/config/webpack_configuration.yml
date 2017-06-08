@@ -1,0 +1,27 @@
+services:
+    uneak.webpack.default:
+        public: false
+        class: Uneak\AssetsBundle\Webpack\Configuration\Webpack
+        arguments:
+            - "default"
+            -
+                - ["@uneak.webpack.config.common", 100]
+            -
+                - "@uneak.webpack.extension.webpack"
+        tags: [{ name: uneak.webpack }]
+
+    uneak.webpack.config.common:
+        public: false
+        class: Uneak\AssetsBundle\Webpack\Configuration\Configuration
+        arguments:
+            - "common"
+            - false
+            -
+                - ["@uneak.webpack.extension.common", 100]
+                - "@uneak.webpack.extension.babel_loader"
+                - "@uneak.webpack.extension.css_loader"
+                - "@uneak.webpack.extension.file_loader"
+                - "@uneak.webpack.extension.markdown_loader"
+                - "@uneak.webpack.extension.raw_loader"
+                - "@uneak.webpack.extension.url_loader"
+                - "@uneak.webpack.extension.npm_resolver"

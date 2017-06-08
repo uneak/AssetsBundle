@@ -1,0 +1,31 @@
+services:
+
+    uneak.assets.asset_type.external.css:
+        class: 'Uneak\AssetsBundle\AssetType\CssExternalAssetType'
+        public: false
+        tags:
+            - { name: "uneak.assets.asset_type" }
+
+    uneak.assets.asset_type.external.js:
+        class: 'Uneak\AssetsBundle\AssetType\JsExternalAssetType'
+        public: false
+        tags:
+            - { name: "uneak.assets.asset_type" }
+
+    uneak.assets.asset_type.external.image:
+        class: 'Uneak\AssetsBundle\AssetType\ImageExternalAssetType'
+        public: false
+        tags:
+            - { name: "uneak.assets.asset_type" }
+
+    uneak.assets.asset_type.internal.js:
+        class: 'Uneak\AssetsBundle\AssetType\JsInternalAssetType'
+        public: false
+        tags:
+            - { name: "uneak.assets.asset_type" }
+
+    uneak.assets.asset_type.webpack.js:
+        class: 'Uneak\AssetsBundle\AssetType\WebpackAssetType'
+        public: false
+        tags:
+            - { name: "uneak.assets.asset_type" }

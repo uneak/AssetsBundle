@@ -1,0 +1,33 @@
+{
+    "name": "uneak/assets-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony AssetsBundle",
+    "keywords": ["assets", "front-end", "frontend", "javascript", "js", "script", "manager", "css", "bower", "npm"],
+    "homepage": "https://github.com/uneak/AssetsBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marc Galoyer",
+            "email": "mgaloyer@uneak.fr",
+            "homepage": "http://www.marc.galoyer.com"
+        }
+    ],
+
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/twig-bridge": "~2.6",
+        "symfony/config": "~2.4",
+        "symfony/dependency-injection": "~2.6,>=2.6.2",
+        "symfony/http-kernel": "~2.6",
+        "symfony/options-resolver": "~2.6",
+        "symfony/asset": "~2.7"
+    },
+    "require-dev": {
+        "symfony/yaml": "~2.1"
+    },
+    "autoload": {
+        "psr-0": { "Uneak\\AssetsBundle": "" }
+    },
+    "target-dir": "Uneak/AssetsBundle",
+    "minimum-stability": "dev"
+}

@@ -1,0 +1,39 @@
+services:
+
+    uneak.assets.resolve_parameters.process:
+        public: false
+        class: Uneak\AssetsBundle\Assets\BulkProcess\ResolveParametersBulkProcess
+        arguments:
+            - '@service_container'
+        tags: [{ name: uneak.bulk_process, priority: 100, alias: 'resolve_parameters' }]
+
+    uneak.assets.resolve_bower.process:
+        public: false
+        class: Uneak\AssetsBundle\Assets\BulkProcess\ResolveBowerBulkProcess
+        arguments:
+            - '@Symfony\Component\Filesystem\Filesystem'
+            - '@uneak.assets.bower.process'
+            - '@uneak.assets.naming_strategy'
+        tags: [{ name: uneak.bulk_process, priority: 90, alias: 'bower' }]
+
+    uneak.assets.build_symlink.process:
+        public: false
+        class: Uneak\AssetsBundle\Assets\BulkProcess\BuildSymlinkBulkProcess
+        tags: [{ name: uneak.bulk_process, priority: 80, alias: 'build_symlink' }]
+
+    uneak.assets.resolve_symlink.process:
+        public: false
+        class: Uneak\AssetsBundle\Assets\BulkProcess\ResolveSymlinkBulkProcess
+        tags: [{ name: uneak.bulk_process, priority: 70, alias: 'resolve_symlink' }]
+
+    uneak.assets.resolve_asset_type.process:
+        public: false
+        class: Uneak\AssetsBundle\Assets\BulkProcess\ResolveAssetsTypeBulkProcess
+        arguments:
+            - '@uneak.assets.asset_type.manager'
+        tags: [{ name: uneak.bulk_process, priority: 60, alias: 'resolve_asset_type' }]
+
+    uneak.assets.build_asset_url.process:
+        public: false
+        class: Uneak\AssetsBundle\Assets\BulkProcess\BuildAssetsUrlBulkProcess
+        tags: [{ name: uneak.bulk_process, priority: 50, alias: 'build_asset_url' }]

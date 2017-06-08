@@ -11,7 +11,7 @@ services:
         public: false
         class: Uneak\AssetsBundle\Assets\BulkProcess\ResolveBowerBulkProcess
         arguments:
-            - '@Symfony\Component\Filesystem\Filesystem'
+            - '@filesystem'
             - '@uneak.assets.bower.process'
             - '@uneak.assets.naming_strategy'
         tags: [{ name: uneak.bulk_process, priority: 90, alias: 'bower' }]

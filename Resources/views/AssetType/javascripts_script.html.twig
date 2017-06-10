@@ -1,7 +1,7 @@
-{% if context.content is defined %}
-<{{ context.tag }} {{ context | attr('type', 'charset', 'async', 'defer') }}>
-	{{ context.content | raw }}
-</{{ context.tag }}>
-{% elseif context.template is defined %}
-	{{ include(context.template, context.template_data, false) }}
+{% if content is defined and content %}
+	<{{ context.tag }} {{ context | attr('type', 'charset', 'async', 'defer') }}>
+	{{ content | raw }}
+	</{{ context.tag }}>
+{% elseif template is defined and template %}
+	{{ include(template, template_data, false) }}
 {% endif %}

@@ -113,9 +113,9 @@
 			// si item est un CollectionItem
 			// -> clone pour pas le modifier per reference
 			//
-//			if ($item instanceof CollectionItem) {
-//				$item = clone $item;
-//			}
+			//			if ($item instanceof CollectionItem) {
+			//				$item = clone $item;
+			//			}
 
 
 			//
@@ -183,19 +183,21 @@
 					throw new InvalidRenderDataException('The item doit etre array.');
 				}
 
-				$item = new Asset($id, null, $item);
-//				$item = new Asset(
-//					$id,
-//					null,
-//					array(
-//						'path' => (isset($item['path'])) ? $item['path'] : null,
-//						'section' => (isset($item['section'])) ? $item['section'] : null,
-//						'parameters' => (isset($item['parameters'])) ? $item['parameters'] : array(),
-//						'type' => (isset($item['type'])) ? $item['type'] : null,
-//						'dependencies' => (isset($item['dependencies'])) ? $item['dependencies'] : array(),
-//						'tags' => (isset($item['tags'])) ? $item['tags'] : array(),
-//					)
-//				);
+				$item = $this->assetTypeManager->getAssetType($item['type'])->createAssetItem($id, null, $item);
+
+				//				$item = new Asset($id, null, $item);
+				//				$item = new Asset(
+				//					$id,
+				//					null,
+				//					array(
+				//						'path' => (isset($item['path'])) ? $item['path'] : null,
+				//						'section' => (isset($item['section'])) ? $item['section'] : null,
+				//						'parameters' => (isset($item['parameters'])) ? $item['parameters'] : array(),
+				//						'type' => (isset($item['type'])) ? $item['type'] : null,
+				//						'dependencies' => (isset($item['dependencies'])) ? $item['dependencies'] : array(),
+				//						'tags' => (isset($item['tags'])) ? $item['tags'] : array(),
+				//					)
+				//				);
 
 			}
 

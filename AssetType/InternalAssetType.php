@@ -20,8 +20,13 @@ abstract class InternalAssetType extends AssetType {
 		$node
 			->children()
 				->scalarNode('content')
-					->isRequired()
-					->cannotBeEmpty()
+					->defaultNull()
+				->end()
+				->scalarNode('template')
+					->defaultNull()
+				->end()
+				->scalarNode('template_data')
+					->defaultNull()
 				->end()
 			->end()
 		;

@@ -42,7 +42,7 @@ services:
     uneak.assets.package:
         class: 'Uneak\AssetsBundle\AssetPackage\AssetPackage'
         arguments:
-            - '@uneak.assets'
+            - '@uneak.assets.finder'
             - '%assets.base_path%'
             - '@assets.context'
 

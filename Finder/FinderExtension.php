@@ -10,7 +10,7 @@
 		 * @var array[]
 		 */
 		private $links;
-		
+
 		public function __construct(array $links = array()) {
 			$this->links = $links;
 		}
@@ -32,14 +32,14 @@
 		}
 
 		public function find($key) {
-			foreach ($this->links as $alias => $link) {
-				if ($alias === substr($key, 0, strlen($alias))) {
-					return $alias;
+			if (preg_match('/(^[#|@][^\/$]+)/', $key, $matches)) {
+				if (isset($this->links[$matches[0]])) {
+					return $matches[0];
 				}
 			}
 			throw new LinkNotFoundException(sprintf("lien %s not found", $key));
 		}
-		
+
 		public function all() {
 			return $this->links;
 		}
@@ -66,6 +66,6 @@
 		public function unserialize($serialized) {
 			$this->links = unserialize($serialized);
 		}
-		
-		
+
+
 	}

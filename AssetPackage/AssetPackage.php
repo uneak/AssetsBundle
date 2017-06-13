@@ -6,18 +6,20 @@
 	use Symfony\Component\Asset\PathPackage;
 	use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 	use Uneak\AssetsBundle\Assets\Assets;
+	use Uneak\AssetsBundle\Finder\Finder;
+	use Uneak\AssetsBundle\Finder\FinderExtensionInterface;
 
 
 	class AssetPackage extends PathPackage {
 
 		/**
-		 * @var Assets
+		 * @var FinderExtensionInterface
 		 */
-		private $assets;
+		private $finder;
 
-		public function __construct(Assets $assets, $basePath = "", ContextInterface $context = null) {
+		public function __construct(FinderExtensionInterface $finder, $basePath = "", ContextInterface $context = null) {
 			parent::__construct($basePath, new EmptyVersionStrategy(), $context);
-			$this->assets = $assets;
+			$this->finder = $finder;
 		}
 
 
@@ -28,7 +30,7 @@
 			if ($this->isAbsoluteUrl($path)) {
 				return $path;
 			}
-			$path = $this->assets->getUrl($path);
+			$path = $this->finder->path($path);
 			return parent::getUrl($path);
 		}
 

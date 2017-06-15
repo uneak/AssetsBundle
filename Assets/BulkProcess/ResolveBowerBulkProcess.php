@@ -79,14 +79,13 @@
 						if (!count($library->getMain())) {
 							$mains = array();
 							foreach ($mappingMains as $main) {
-								$mainName = $parent . ':' . $main['name'];
+								$mainName = $parent . ':' . $library->getName() . ':' . $main['name'];
 								if (!in_array($mainName, $mains)) {
 									$mains[] = $mainName;
 								}
 							}
 							$library->setMain($mains);
 						}
-
 
 						$library->merge($mapping);
 

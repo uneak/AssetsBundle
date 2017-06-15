@@ -49,11 +49,12 @@
 							$library = $bowerPackage->getLibrary($name);
 						}
 
-						$library->merge($mapping);
+						// GESTION DES DEPENDENCIES
+						$mappingDependencies = $mapping['dependencies'];
+						unset($mapping['dependencies']);
 
-						// add dependencies
 						$dependencies = $library->getDependencies();
-						foreach ($mapping['dependencies'] as $dependency) {
+						foreach ($mappingDependencies as $dependency) {
 							$dependencyName = $parent . ':' . $dependency;
 							if (!in_array($dependencyName, $dependencies)) {
 								$dependencies[] = $dependencyName;
@@ -61,23 +62,34 @@
 						}
 						$library->setDependencies($dependencies);
 
+
+						// GESTION DES MAIN SCRIPT
+						$mappingMains = $mapping['main'];
+						unset($mapping['main']);
+
+						foreach ($mappingMains as $main) {
+							$bulk->assets()->add(new Asset(
+								$main['name'],
+								$parent . ':' . $library->getName(),
+								array('file' => $main['file'])
+							));
+						}
+
 						// add main if not exist
 						if (!count($library->getMain())) {
 							$mains = array();
-							foreach ($mapping['main'] as $main) {
-								$bulk->assets()->add(new Asset(
-									$main['name'],
-									$parent . ':' . $library->getName(),
-									array('file' => $main['file'])
-								));
+							foreach ($mappingMains as $main) {
 								$mainName = $parent . ':' . $main['name'];
 								if (!in_array($mainName, $mains)) {
 									$mains[] = $mainName;
 								}
 							}
 							$library->setMain($mains);
-
 						}
+
+
+						$library->merge($mapping);
+
 					}
 				}
 			}

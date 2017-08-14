@@ -59,7 +59,7 @@
 		/**
 		 * @param boolean $visited
 		 */
-		public function setVisited(bool $visited) {
+		public function setVisited($visited) {
 			$this->visited = $visited;
 		}
 

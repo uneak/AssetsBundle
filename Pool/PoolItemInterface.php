@@ -24,6 +24,6 @@
 		 * @return boolean
 		 */
 		public function isVisited();
-		public function setVisited(bool $visited);
+		public function setVisited($visited);
 
 	}
